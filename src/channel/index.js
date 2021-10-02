@@ -8,11 +8,12 @@ class RabbitMQChannel {
         this.connectionOptions = connectionOptions;
 
         this.channel = null;
+        this.isDead = false;
     }
 
     async _connect(relinquishExisting=false) {
         const connection = await amqplib.connect(this.uri, this.connectionOptions);
-        if (this.channel === null || relinquishExisting) {
+        if (!this.isDead && (this.channel === null || relinquishExisting)) {
             this.channel = await connection.createConfirmChannel();
             //TODO: reject pending promises on error
             this.channel.on('close', () => {
@@ -44,6 +45,11 @@ class RabbitMQChannel {
     async queue(name=null) {
         await this._ensureConnection();
         return new RabbitMQQueueClient(this, name);
+    }
+
+    async close() {
+        this.isDead = true;
+        await this.channel.close();
     }
 }
 

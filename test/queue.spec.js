@@ -1,12 +1,17 @@
 const RabbitMQChannel = require('../src').RabbitMQChannel;
 
 describe('RabbitMQQueue tests', () => {
+    let channel;
     let queue;
 
     beforeEach(async () => {
-        const channel = createNewChannel();
+        channel = createNewChannel();
         queue = await channel.queue();
         await queue.create();
+    });
+
+    afterEach(async () => {
+        await channel.close().catch(console.warn);
     });
 
     function createNewChannel() {
@@ -83,7 +88,7 @@ describe('RabbitMQQueue tests', () => {
             await queue.publish(expectedMessage);
         });
 
-        expect.hasAssertions();
+        expect.assertions(2);
     });
 
     it('should purge messages', async () => {
