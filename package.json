@@ -1,0 +1,32 @@
+{
+  "name": "bugs-q",
+  "version": "0.0.2",
+  "description": "A RabbitMQ JavaScript client library",
+  "main": "src/index.js",
+  "author": "TomBailey <inbox@tombailey.me>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tombailey/bugs-q.git"
+  },
+  "keywords": [
+    "bug",
+    "bugs",
+    "queue",
+    "q"
+  ],
+  "bugs": {
+    "url": "https://github.com/tombailey/bugs-q/issues"
+  },
+  "homepage": "https://github.com/tombailey/bugs-q#readme",
+  "scripts": {
+    "test": "jest ./test"
+  },
+  "dependencies": {
+    "amqplib": "^0.8.0"
+  },
+  "devDependencies": {
+    "@trendyol/jest-testcontainers": "^2.1.0",
+    "jest": "^27.2.3"
+  }
+}
